@@ -5,6 +5,9 @@ import {
 } from "@internal-staff-portal/backend-shared";
 import { Router } from "express";
 
+//export model and interfaces
+export { IRole, RoleModel } from "./Models/RoleModel";
+
 //options for the Wrapper
 interface ModuleOptions {}
 
@@ -15,21 +18,24 @@ export default function ModuleWrapper(
   //the constructor
   return function (core: CoreValues): Module {
     //define module path
-    const path = "/TModule";
+    const path = "/roles";
 
     //create the router
-    const TModuleRouter = Router();
+    const rolesRouter = Router();
 
     //create the socket.io namespace
     const namespace = core.createNamespace(path);
 
-    //the module code here
+    //test route (will be removed)
+    rolesRouter.get("/test", (req, res) => {
+      res.send("Test from roles module!");
+    });
 
     //return the actual module
     return {
-      name: "TModule",
+      name: "roles",
       path: path,
-      router: TModuleRouter,
+      router: rolesRouter,
     };
   };
 }
